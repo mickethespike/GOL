@@ -8,10 +8,11 @@ namespace GOL
     {
         public int Width;
         public int Height;
+        public bool Wrap;
 
         public Cell[][] Cells;
 
-        public Board(int w, int h) : this(CreateBaseState(w, h))
+        public Board(int w, int h, bool wrap) : this(CreateBaseState(w, h), wrap)
         {
 
         }
@@ -40,11 +41,11 @@ namespace GOL
             return source;
         }
 
-        public Board(Cell.State[][] source)
+        public Board(Cell.State[][] source, bool wrap)
         {
             Height = source.Length;
             Width = source[0].Length;
-
+            Wrap = wrap;
             Cells = new Cell[Height][];
 
             for (int y = 0; y < Cells.Length; y++)
@@ -61,15 +62,29 @@ namespace GOL
 
         public (int x, int y) WrapIndex(int x, int y)
         {
-            if (x < 0)
-                x = Width - 1;
-            if (x >= Width)
-                x = 0;
-            if (y < 0)
-                y = Height - 1;
-            if (y >= Height)
-                y = 0;
+            if (Wrap)
+            {
+                if (x < 0)
+                    x = Width - 1;
+                if (x >= Width)
+                    x = 0;
+                if (y < 0)
+                    y = Height - 1;
+                if (y >= Height)
+                    y = 0;
+            }
 
+            else
+            {
+                if (x < 0)
+                    x =-1;
+                if (x >= Width)
+                    x = -1;
+                if (y < 0)
+                    y = -1;
+                if (y >= Height)
+                    y = -1;
+            }
             return (x, y);
         }
 
@@ -90,6 +105,8 @@ namespace GOL
                     int nx = x + cx;
 
                     var (ax, ay) = WrapIndex(nx, ny);
+                    if (ay < 0 || ax < 0)
+                        continue;
 
                     if (Cells[ay][ax].state == Cell.State.Alive)
                         neighbours++;

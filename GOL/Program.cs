@@ -32,7 +32,7 @@ namespace GOL
                 new [] { X, X, X, X, X, X }
             };
             //Board board = new Board(initial);
-            Board board = new Board(60, 40);
+            Board board = new Board(60, 40, false);
 
             while (true)
             {
