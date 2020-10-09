@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 using System.Text;
 
 namespace GOL
@@ -9,6 +8,8 @@ namespace GOL
         public int Width;
         public int Height;
         public bool Wrap;
+        private static int Seeder = Guid.NewGuid().GetHashCode();
+        public int Seed;
 
         public Cell[][] Cells;
 
@@ -19,8 +20,9 @@ namespace GOL
 
         public static Cell.State[][] CreateBaseState(int w, int h)
         {
-            var rng = new Random();
+            var rng = new Random(Seeder);
             var source = new Cell.State[h][];
+
 
             for (int y = 0; y < h; y++)
             {
@@ -39,6 +41,7 @@ namespace GOL
                 }
             }
             return source;
+
         }
 
         public Board(Cell.State[][] source, bool wrap)
@@ -47,6 +50,7 @@ namespace GOL
             Width = source[0].Length;
             Wrap = wrap;
             Cells = new Cell[Height][];
+            Seed = Seeder;
 
             for (int y = 0; y < Cells.Length; y++)
             {
@@ -77,7 +81,7 @@ namespace GOL
             else
             {
                 if (x < 0)
-                    x =-1;
+                    x = -1;
                 if (x >= Width)
                     x = -1;
                 if (y < 0)

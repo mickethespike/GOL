@@ -9,30 +9,15 @@ namespace GOL
         {
             var X = Cell.State.Dead;
             var O = Cell.State.Alive;
-            //Cell.State[][] initial =
-            //{
-            //    new [] { X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X },
-            //    new [] { X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X },
-            //    new [] { X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X },
-            //    new [] { X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X },
-            //    new [] { X, X, X, X, X, X, O, O, X, X, X, X, X, X, X, X },
-            //    new [] { X, X, X, X, X, X, O, X, X, X, X, X, X, X, X, X },
-            //    new [] { X, X, X, X, X, X, X, X, X, O, X, X, X, X, X, X },
-            //    new [] { X, X, X, X, X, X, X, X, O, O, X, X, X, X, X, X },
-            //    new [] { X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X },
-            //    new [] { X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X },
-            //};
             Cell.State[][] initial =
             {
-                new [] { X, X, X, X, X, X },
-                new [] { X, O, O, X, X, X },
-                new [] { X, O, X, X, X, X },
-                new [] { X, X, X, X, O, X },
-                new [] { X, X, X, O, O, X },
-                new [] { X, X, X, X, X, X }
+                // Fill with patterns in `PATTERNS.md`
             };
-            //Board board = new Board(initial);
-            Board board = new Board(60, 40, false);
+
+            //Board board = new Board(initial, false);
+            Board board = new Board(Console.WindowWidth - 2, Console.WindowHeight - 2, false);
+
+            Console.Title = Convert.ToString(board.Seed);
 
             while (true)
             {
